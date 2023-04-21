@@ -1,45 +1,46 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 import { useState } from "react";
 
 export default function App() {
 
-  const[name, setName] = useState("elefantenberg");
-  let[yourName, setYourName] = useState("");
-  const[client, setClient] = useState({
-    city: "diyarbakir", 
-    age: 40,
-  })
+  let [content, setContent] = useState(null);
+  const[people, setPeople] = useState([
+    {name: "shaun", key: "1"},
+    {name: "bedo", key: "2"},
+    {name: "maho", key: "3"},
+    {name: "sülo", key: "4"},
+    {name: "ibo", key: "5"},
+    {name: "cemo", key: "6"},
+    {name: "hamo", key: "7"},
+    {name: "sumbulo", key: "8"},
+    {name: "sukri", key: "9"},
+    {name: "kasimo", key: "10"},
+  ])
 
-  const changeName = () => {
-    if(name === "abdulhakim") {
-      setName("elefantenberg");
+  let [displayStatus, setDisplayStatus] = useState(false);
+  const displayNames = () => {
+    setDisplayStatus(!displayStatus);
+    if(displayStatus === true) {
+      setContent(
+        people.map( (person) => (
+          <Text style={styles.item} key={person.key}>{person.name}</Text>
+        ))
+      )
     } else {
-      setName("abdulhakim");  
+      setContent(null);
     }
+
   }
 
   return (
     <View style={styles.container}>
-      <Text>My Name is: {name} </Text>
-      <Text>Your Name is: {yourName}</Text>
-      <Text>You are from: {client.city} and your age is: {client.age} </Text>
-      <Text style={styles.setFontSizeFour}>Hello this is hello world really</Text>
-      <View style={styles.buttonContainer}>
-        <Button title='update name' onPress={changeName} />
-      </View>
-      <View>
-        <Text>Enter Name: </Text> 
-        <TextInput 
-          multiline //when you press enter it will go one line down
-          numberOfLines={3}
-          maxLength={40} 
-          keyboardType='numeric' //the keyboard that will pop up will be numeric
-          style={styles.inputField} 
-          onChangeText={(val)=> setYourName(val)}
-          placeholder='your name....'
-         />
-      </View>
+      <Button title='display members' onPress={displayNames}/>
+      <ScrollView>
+        {content}
+      </ScrollView>
+
+
     </View>
   );
 
@@ -48,22 +49,18 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'yellow',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  setFontSizeFour: {
-    fontSize: 30,
-    backgroundColor: 'pink',
+    backgroundColor: '#fff',
+    paddingTop: 40,
+    paddingHorizontal: 20,
+
   },
   buttonContainer: {
-    marginTop: 50,
+    fontFamily: "Trebuchet MS",
   },
-  inputField: {
-    backgroundColor: "gray",
-    fontSize: 25,
-    borderRadius: 7,
-    fontFamily: "Verdana",
-    padding:9,
-  },
+  item: {
+    marginTop: 24,
+    padding: 30,
+    backgroundColor: "pink",
+    fontSize: 24,
+  }
 });
