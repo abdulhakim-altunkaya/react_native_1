@@ -1,42 +1,34 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
 import { useState } from "react";
+import Header from './components/Header';
 
 export default function App() {
 
-
-  const[people, setPeople] = useState([
-    {name: "shaun", id: "1"},
-    {name: "bedo", id: "2"},
-    {name: "maho", id: "3"},
-    {name: "sülo", id: "4"},
-    {name: "ibo", id: "5"},
-    {name: "cemo", id: "6"},
-    {name: "hamo", id: "7"},
-    {name: "sumbulo", id: "8"},
-    {name: "sukri", id: "9"},
-    {name: "kasimo", id: "10"},
+  const[todos, setTodos] = useState([
+    {task: "have a coffee in cafe", key: "1"},
+    {task: "follow two videos of net ninja", key: "2"},
+    {task: "create a solidity contract", key: "3"},
+    {task: "start bnb hackaton", key: "4"},
+    {task: "make one video", key: "5"},
+    {task: "study german", key: "6"},
   ])
-
-  const pressHandler = (id) => {
-    console.log(id);
-    setPeople(people.filter( person => person.id != id));
-    console.log(people);
-  }
 
   return (
     <View style={styles.container}>
-
-      <FlatList
-        numColumns={2}
-        keyExtractor={(item) => item.id}
-        data={people}
-        renderItem={({item}) => (
-          <TouchableOpacity onPress={()=> pressHandler(item.id)}>
-            <Text style={styles.item}> {item.name} </Text>
-          </TouchableOpacity>
-        )}
-      />
+      <Header />
+      <View style={styles.content} >
+        
+        <View style={styles.list}>
+          <FlatList
+            data={todos}
+            renderItem={({item}) => (
+              <Text> {item.task} </Text>
+            )}
+          />
+        </View>
+      
+      </View>
 
     </View>
   );
@@ -47,18 +39,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 40,
-    paddingHorizontal: 20,
+  },
+  content: {
+    padding: 40,
 
   },
-  buttonContainer: {
-    fontFamily: "Trebuchet MS",
+  list: {
+    marginTop: 20,
   },
-  item: {
-    marginTop: 24,
-    padding: 30,
-    backgroundColor: "pink",
-    fontSize: 24,
-    marginHorizontal: 10,
-  }
 });
