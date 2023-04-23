@@ -13,7 +13,7 @@ function TodoItem({item, deleteTask}) {
 
 const styles = StyleSheet.create({
     listItem: {
-      fontSize: 25,
+      fontSize: 18,
       padding: 16,
       marginTop: 16,
       borderColor: "#bbb",

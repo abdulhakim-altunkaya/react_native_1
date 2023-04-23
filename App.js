@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native
 import { useState } from "react";
 import Header from './components/Header';
 import TodoItem from './components/TodoItem';
+import AddTodo from './components/AddTodo';
 
 export default function App() {
 
@@ -19,11 +20,23 @@ export default function App() {
     setTodos(todos.filter( task => task.key != key ))
   }
 
+  const addTask = (task) => {
+    let newTask = {task: task, key: Math.random().toString()};
+    setTodos((prevState) => {
+      const newState = [...prevState]
+       newState.push(newTask);
+       return newState;
+    });
+    console.log(todos);
+  }
+
+  
+
   return (
     <View style={styles.container}>
       <Header />
       <View style={styles.content} >
-        
+        <AddTodo addTask={addTask} />
         <View style={styles.list}>
           <FlatList
             data={todos}
