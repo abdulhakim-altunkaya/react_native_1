@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
 import { useState } from "react";
 import Header from './components/Header';
+import TodoItem from './components/TodoItem';
 
 export default function App() {
 
@@ -14,6 +15,10 @@ export default function App() {
     {task: "study german", key: "6"},
   ])
 
+  const deleteTask = (key) => {
+    setTodos(todos.filter( task => task.key != key ))
+  }
+
   return (
     <View style={styles.container}>
       <Header />
@@ -23,7 +28,7 @@ export default function App() {
           <FlatList
             data={todos}
             renderItem={({item}) => (
-              <Text> {item.task} </Text>
+              <TodoItem item={item} deleteTask={deleteTask} />
             )}
           />
         </View>
@@ -42,7 +47,6 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 40,
-
   },
   list: {
     marginTop: 20,
