@@ -31,9 +31,11 @@ function AddTodo({addTask}) {
 
 const styles = StyleSheet.create({
     inputField: {
-      backgroundColor: "#ededed",
+      borderBottomColor: "gray",
+      borderStyle: "solid",
+      borderBottomWidth: 3,
       fontSize: 20,
-      borderRadius: 7,
+      outlineStyle: "none",
       padding:9,
       marginBottom: 15,
     },

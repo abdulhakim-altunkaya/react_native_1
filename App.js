@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, 
+  TouchableOpacity, FlatList, Alert } from 'react-native';
 import { useState } from "react";
 import Header from './components/Header';
 import TodoItem from './components/TodoItem';
@@ -21,13 +22,20 @@ export default function App() {
   }
 
   const addTask = (task) => {
-    let newTask = {task: task, key: Math.random().toString()};
-    setTodos((prevState) => {
-      const newState = [...prevState]
-       newState.push(newTask);
-       return newState;
-    });
-    console.log(todos);
+    if(task.length < 4) {
+      Alert.alert("OOPS DUDE", "Task must be longer than 3 letters", [
+        {text: "understood", onPress: () => console.log("alert closed")}
+      ])
+    } else {
+      let newTask = {task: task, key: Math.random().toString()};
+      setTodos((prevState) => {
+        const newState = [...prevState]
+         newState.push(newTask);
+         return newState;
+      });
+      console.log(todos);
+    }
+
   }
 
   
